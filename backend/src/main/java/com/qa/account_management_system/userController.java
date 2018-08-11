@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class userController {
 	@Autowired
 	AccountService accountService;
+	
 		
-
 	@GetMapping
 	public List<Account> list(){
 		return accountService.findAll();
@@ -30,6 +31,7 @@ public class userController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
 	public void create (@RequestBody Account account) {
+		
 		accountService.save(account);
 	}
 	
@@ -48,5 +50,11 @@ public class userController {
 	 return ResponseEntity.ok().body(updateAccount);
 	}
 	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteAccount(@PathVariable (value="id") long id) {
+		Account acc = accountService.getOne(id);
+		accountService.delete(acc);
+		return ResponseEntity.ok().build();
+	}
 
 }
