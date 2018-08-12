@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,8 +32,7 @@ public class userController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
 	public void create (@RequestBody Account account) {
-		
-		accountService.save(account);
+	accountService.save(account);
 	}
 	
 	@GetMapping("/{id}")

@@ -14,7 +14,7 @@
         <h4> Add User</h4>
         <div class="form-group">
           <label class="pull-left"> First Name </label>
-          <input type="text" class="form-control" placeholder="First Name" v-model="Account.firstName">
+          <input type="text" class="form-control" placeholder="First Name" v-model="Account.firstname">
         </div>
         <div class="form-group">
           <label class="pull-left"> Last Name </label>
@@ -26,49 +26,57 @@
         </div>
       </div>
       <button type="submit" class="btn btn-large btn-block btn-primary full-width" @click ="sendtoAPI">Submit</button>
-       <button class="btn btn-large btn-block btn-success full-width">Go</button>
+      <button type="submit" class="btn btn-large btn-block btn-primary full-width" @click ="getfromAPI">GetUsers</button>
     </form>
   </div>
 </template>
+
 <script>
 /* eslint-disable */
- import axios from 'axios';
+ import axios from 'axios'
 
   export default {
-    name: 'HomePage',
+    name: 'Add',
        data () {
      return {
-      msg: 'Welcome to Your Account Management Application System',
-      Account: { firstName:'',surname:'',accountNumber:'' },
-    }
+      Account: { firstname:'',surname:'',accountNumber:'' },
+      //myJson = JSON.stringify(Account)
+        }
   },
    methods: {
     sendtoAPI() {
       let newAccount = {
-        firstName: this.Account.firstName,
+        firstname: this.Account.firstname,
         surname: this.Account.surname,
         accountNumber: this.Account.accountNumber,
       }
       console.log(newAccount);
-      axios.post('/Account/')
+      axios.post('http://localhost:8080/Account/')
       .then((response) => {
            console.log(response);
         })
         .catch((error) => {
           console.log(error);
         });
-
-
-      }
-     
+      },
+    getfromAPI() {
+      axios.get(`http://localhost:8080/Account/`)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          this.response = response.data
+          console.log(response.data)
+          this.httpStatusCode = response.status
+          this.httpStatusText = response.statusText
+          this.headers = response.headers
+          this.fullResponse = response
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+    }
 
     }
   }
-
-
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>
+<style scoped></style>
