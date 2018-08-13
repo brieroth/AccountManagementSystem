@@ -25,7 +25,7 @@
         </div>
       </div>
       <button type="submit" class="btn btn-large btn-block btn-primary full-width" @click ="sendtoAPI">Submit</button>
-      <button type="submit" class="btn btn-large btn-block btn-primary full-width" @click ="getfromAPI">GetUsers</button>
+      <button type="submit" class="btn btn-large btn-block btn-primary full-width" @click ="getfromAPI">Get All Accounts</button>
     </form>
   <div class="container">
   <meta charset="UTF-8">
@@ -41,12 +41,41 @@
       </tr>
     </thead>
     <tbody>
-       <tr v-for="row in rows" :key="row-id">
+       <tr v-for="row in rows" :key="row.id">
        <td>{{row.id}}</td>
        <td>{{row.firstname}}</td>
        <td>{{row.surname}}</td>
        <td>{{row.accountNumber}}</td>
-       <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" @click="updateAPI(row)" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+       <td><p data-placement="top" data-toggle="modal" title="Edit"><button type="button" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Account</h4>
+        </div>
+        <div class="modal-body">
+        <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Account Number</th>
+          </tr>
+        </thead>
+          <td>{{row.id}}</td>
+          <td>{{row.firstname}}</td>
+          <td>{{row.surname}}</td>
+          <td>{{row.accountNumber}}</td>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      </div>
+      </div>
        <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" @click="deletefromAPI(row, row.id) " data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
       </tr>
      </tbody>
