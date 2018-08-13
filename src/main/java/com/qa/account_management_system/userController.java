@@ -30,6 +30,8 @@ public class userController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
 	public void create (@RequestBody Account account) {
+		
+		
 		accountService.save(account);
 	}
 	

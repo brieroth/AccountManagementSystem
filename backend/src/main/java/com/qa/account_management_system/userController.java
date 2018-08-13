@@ -26,12 +26,15 @@ public class userController {
 		
 	@GetMapping
 	public List<Account> list(){
+		System.out.println(accountService.findAll().get(0));
 		return accountService.findAll();
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
 	public void create (@RequestBody Account account) {
+		
+	System.out.println(account);
 	accountService.save(account);
 	}
 	
@@ -51,10 +54,11 @@ public class userController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteAccount(@PathVariable (value="id") long id) {
-		Account acc = accountService.getOne(id);
-		accountService.delete(acc);
-		return ResponseEntity.ok().build();
+	public void deleteAccount(@PathVariable (value="id") long id) {
+//		System.out.println(id);
+//		Account acc = accountService.getOne(id);
+		accountService.delete(id);
+		//return ResponseEntity.ok().build();
 	}
 
 }
